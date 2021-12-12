@@ -7,7 +7,7 @@ export const Wrapper = styled.main`
   position: relative;
 
   display: flex;
-  align: center;
+  align-items: center;
   justify-content: center;
 `
 
