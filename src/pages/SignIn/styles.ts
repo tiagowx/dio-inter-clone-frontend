@@ -34,17 +34,18 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
 
   display:  flex ;
-  align-items:center
+  align-items:center;
   flex-direction: column;
 
   p{
     font-size: 0.75rem;
     font-weight: 400;
-    color: ${({theme}) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.secondary};
     
     a {
       font-size: 1rem ;
       font-weight: 700;
+      color: ${({ theme }) => theme.colors.primary}
     }
   }
 `
