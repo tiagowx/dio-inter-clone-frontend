@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, useCallback } from "react";
 
-import { signIn, signUp, SignInData, SignUpData } from '../services/resources/user'
+import { signIn, signUp, SignInData, SignUpData, me } from '../services/resources/user'
 
 
 interface UserDto {
@@ -26,17 +26,34 @@ export const AuthProvider: React.FC = ({ children }) => {
   const userSignIn = async (userData: SignInData) => {
     const { data } = await signIn(userData);
 
-    localStorage.setItem('@Inter:Token', data.accessToken)
+    if (data?.status === 'error') {
+      return data;
+    }
+
+    if (data.accessToken) {
+      localStorage.setItem('@Inter:Token', data.accessToken)
+    }
+
+    await getCurrentUser();
+  }
+
+  const getCurrentUser = async () => {
+    const { data } = await me();
+    setUser(data);
+
+    return data;
   }
 
   const userSignUp = async (userData: SignInData) => {
-        const { data } = await signIn(userData);
+    const { data } = await signIn(userData);
 
-    localStorage.setItem('@Inter:Token', data.accessToken)
+    localStorage.setItem('@Inter:Token', data.accessToken);
+
+    await getCurrentUser();
   }
 
   return (
-    <AuthContext.Provider value={{ user, userSignIn, userSignUp  }}>
+    <AuthContext.Provider value={{ user, userSignIn, userSignUp }}>
       {children}
     </AuthContext.Provider>
   )
