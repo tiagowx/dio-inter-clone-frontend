@@ -1,5 +1,3 @@
-import { userInfo } from "os";
-import { FiDatabase } from "react-icons/fi";
 import api from "../api";
 
 export interface SignInData {
@@ -14,14 +12,14 @@ export interface SignUpData {
   password: string;
 }
 
-export const signIn = async (data: SignInData) =>{
+export const signIn = async (data: SignInData) => {
   return api.post('/user/signin', data);
 }
 
-export const signUp = async (data: SignUpData) =>{
-  return api.post('/user/signup', data);
+export const me = async () => {
+  return api.get('/user/me');
 }
 
-export const me = async () =>{
-  return api.get('/user/me');
+export const signUp = async (data: SignUpData) => {
+  return api.post('/user/signup', data);
 }

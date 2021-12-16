@@ -1,15 +1,26 @@
 import {DashboardBackground, BodyContainer, InlineContainer, InlineTitle} from './styles';
 
-import Header from '../../components/Header';
-import Card from '../../components/Card';
-import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Card from '../../components/Card';
+import Header from '../../components/Header';
+import Input from '../../components/Input';
+import useAuth from '../../hooks/useAuth';
 
 import Statement from './Statement';
+import { useEffect } from 'react';
 
 const Dashboard = () => {
 
-    const wallet = 1000.00
+    const {user, getCurrentUser} = useAuth();
+    const wallet = user.wallet;
+
+    useEffect(()=>{
+        getCurrentUser()
+    },[])
+
+    if(!user) {
+        return null;
+    }
 
     return (
         <DashboardBackground>
